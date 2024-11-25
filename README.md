@@ -11,7 +11,7 @@ Welcome to my Advent of Code repository! This repo contains my solutions for the
 ## How to Run
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/advent-of-code.git
+git clone https://github.com/jomaxso/advent-of-code.git
 ```
 2. Navigate to the folder of the day you want to run:
 ```bash
