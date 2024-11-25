@@ -1,4 +1,4 @@
-<img src="/assets/images/addvent-of-code.jpg" alt="Advent of Code" title="Advent of Code">
+<img src="/assets/images/advent-of-code.jpg" alt="Advent of Code" title="Advent of Code">
 
 # Advent of Code Solutions 🎅🎄
 Welcome to my Advent of Code repository! This repo contains my solutions for the [Advent of Code](https://adventofcode.com) challenges. Advent of Code is an annual event where each day from December 1st to 25th, a new programming puzzle is released. It’s a fun way to improve your coding skills and get into the holiday spirit! 
