@@ -48,16 +48,16 @@ This folder contains the solution for Day $i.
 ## Run the solution
 To run the solution, execute the following command:
 
-\`\`\` shell
+```shell
 dotnet run --project ../$solutionProjectName/$solutionProjectName.csproj
-\`\`\`
+```
     
 ## Run the tests
 To run the tests, execute the following command:
 
-\`\`\` shell
+```shell
 dotnet test ../$testProjectName/$testProjectName.csproj
-\`\`\
+```
 "@
     $readmeContent | Out-File -FilePath "README.md" -Encoding utf8
     
