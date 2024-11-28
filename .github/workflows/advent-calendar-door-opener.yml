@@ -1,0 +1,31 @@
+﻿name: Advent Calendar Door Opener - Daily from Dec 1 to Dec 25
+on:
+  schedule:
+    - cron: '0 0 1-25 12 *'  # Runs every day from Dec 1 to Dec 25 at midnight
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  create-advent-day:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@latest
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+      - name: Create the new Advent Day
+        run: .\create-advent-day.ps1
+        shell: pwsh
+        
+      - name: Commit and push changes
+        run: |
+          $currentDate = Get-Date -Format "dd. MMMM"
+          git add .
+          git commit -m "Automated commit for new Advent Day on $currentDate"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
