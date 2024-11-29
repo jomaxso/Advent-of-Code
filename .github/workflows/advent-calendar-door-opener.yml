@@ -62,5 +62,5 @@ jobs:
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USER: ${{ secrets.GITHUB_USER }}
-          EMAIL: ${{ secrets.GITHUB_EMAIL }}
+          USER: ${{ secrets.GIT_USER }}
+          EMAIL: ${{ secrets.GIT_EMAIL }}
