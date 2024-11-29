@@ -79,7 +79,7 @@ jobs:
           $issue_Label = "Advent of Code,${{ env.year }}"
           
           # Create issue for the day
-          gh issue create --title $issue_Title --label $issue_Label --repo $env:GITHUB_REPOSITORY --body "This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }})."
+          gh issue create --title $issue_Title --label $issue_Label --repo $env:GITHUB_REPOSITORY --assign ${{ github.repository_owner }} --body "This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }})."
           
           # Get the issue number
           $issue_Number = gh search issues $issue_Title --label $issue_Label --repo $env:GITHUB_REPOSITORY --created $commitDate --json number | ConvertFrom-Json | Select-Object -ExpandProperty number
