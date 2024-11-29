@@ -64,10 +64,8 @@ jobs:
           
       - name: Create GitHub label 
         run: |
-          $randomColorForYear = (Get-Random -Minimum 0 -Maximum 16777215).ToString("X6") 
-          $randomColorForMain = (Get-Random -Minimum 0 -Maximum 16777215).ToString("X6") 
-          gh label create "${{ env.year }}" --color "#$randomColorForYear" --description "Label for Advent of Code Year ${{ env.year }}" --force
-          gh label create "Advent of Code" --color "#$randomColorForMain" --description "Label for Advent of Code issues" --force
+          gh label create "${{ env.year }}" --description "Label for Advent of Code Year ${{ env.year }}" --force
+          gh label create "Advent of Code" --description "Label for Advent of Code issues" --force
         shell: pwsh 
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
