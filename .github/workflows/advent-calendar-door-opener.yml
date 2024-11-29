@@ -50,11 +50,17 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
+          $user = if ($env:USER) { $env:USER } else { 'github-actions' } 
+          $email = if ($env:EMAIL) { $env:EMAIL } else { 'github-actions@github.com' } 
           $currentDate = Get-Date -Format "dd. MMMM"
+          
+          git config --global user.name $user 
+          git config --global user.email $email
           git add .
           git commit -m "Automated commit for new Advent Day on $currentDate"
           git push
+        shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USER: ${{ secrets.GITHUB_USER }}
+          EMAIL: ${{ secrets.GITHUB_EMAIL }}
