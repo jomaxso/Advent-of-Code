@@ -11,11 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Git user
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
       - name: Create the new Advent Day
         run: .\create-advent-day.ps1
@@ -23,6 +18,8 @@ jobs:
         
       - name: Commit and push changes
         run: |
+          git config --global user.name 'github-actions' 
+          git config --global user.email 'github-actions@github.com'
           $currentDate = Get-Date -Format "dd. MMMM"
           git add .
           git commit -m "Automated commit for new Advent Day on $currentDate"
