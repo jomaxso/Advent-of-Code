@@ -3,6 +3,13 @@ on:
   schedule:
     - cron: '0 0 1-25 12 *'  # Runs every day from Dec 1 to Dec 25 at midnight
   workflow_dispatch:  # Allows manual triggering of the workflow
+    inputs: 
+      year: 
+        description: 'Jahr'
+        required: true 
+      day: 
+        description: 'Tag'
+        required: true
 
 jobs:
   create-advent-day:
@@ -11,9 +18,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        
+      - name: Set date variables 
+        id: set-date 
+        run: | 
+          if [ -z "${{ github.event.inputs.year }}" ]; then 
+            echo "year=$(date +'%Y')" >> $GITHUB_ENV 
+          else 
+            echo "year=${{ github.event.inputs.year }}" >> $GITHUB_ENV 
+          fi 
+          if [ -z "${{ github.event.inputs.day }}" ]; then 
+            echo "day=$(date +'%d')" >> $GITHUB_ENV 
+          else 
+            echo "day=${{ github.event.inputs.day }}" >> $GITHUB_ENV 
+          fi
           
       - name: Create the new Advent Day
-        run: .\create-advent-day.ps1
+        run: .\create-advent-day.ps1 ${{ env.year }} ${{ env.day }}
         shell: pwsh
         
       - name: Commit and push changes

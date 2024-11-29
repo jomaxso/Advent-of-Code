@@ -1,22 +1,23 @@
-﻿$currentYear = (Get-Date).Year
-$currentMonth = (Get-Date).Month
-$currentDay = (Get-Date).Day
+﻿param ( 
+[int]$year,
+[int]$day
+)
 
-$slnName = "AdventOfCode.$currentYear"
+$slnName = "AdventOfCode.$year"
 $solutionProjectName = "Solution"
 $testProjectName = "Test"
 $srcRoot = "src"
 
-$srcPath = "$srcRoot\$currentYear"
+$srcPath = "$srcRoot\$year"
 $slnPath = "$srcPath\$slnName.sln"
-$folderName = "Day{0:D2}" -f $currentDay
+$folderName = "Day{0:D2}" -f $day
 $fullPath = "$srcPath\$folderName"
 
-if ((Get-Date) -lt (Get-Date -Year $currentYear -Month 12 -Day 01) -or (Get-Date) -lt (Get-Date -Year $currentYear -Month 12 -Day 25))
-{
-    Write-Host "Advent of Code $currentYear has not started yet. Please try again on December 1st."
-    exit 1
-}
+#if ((Get-Date) -lt (Get-Date -Year $year -Month 12 -Day 01) -or (Get-Date) -lt (Get-Date -Year $year -Month 12 -Day 25))
+#{
+#    Write-Host "Advent of Code $year has not started yet. Please try again on December 1st."
+#    exit 1
+#}
 
 # Create src root directory if it doesn't exist
 if (-not (Test-Path -Path $srcRoot))
@@ -36,7 +37,7 @@ if (-not (Test-Path -Path $srcPath))
 if (-not (Test-Path -Path $slnPath))
 {
     Write-Host "Creating solution file $slnPath"
-    dotnet new sln -o src/$currentYear -n $slnName
+    dotnet new sln -o src/$year -n $slnName
 }
 
 if (Test-Path -Path $fullPath)
@@ -50,8 +51,8 @@ Set-Location -Path $fullPath
 
 # Create README.md file
 $readmeContent = @"
-# [Advent of Code $currentYear - Day $currentDay](https://adventofcode.com/$currentYear/day/$currentDay)
-This folder contains the solution for Day $currentDay.
+# [Advent of Code $year - Day $day](https://adventofcode.com/$year/day/$day)
+This folder contains the solution for Day $day.
 
 ## Problem
 To be added...
