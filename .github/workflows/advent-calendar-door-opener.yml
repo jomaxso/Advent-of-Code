@@ -1,13 +1,14 @@
 ﻿name: Advent Calendar Door Opener - Daily from Dec 1 to Dec 25
+
 on:
   schedule:
     - cron: '0 0 1-25 12 *'  # Runs every day from Dec 1 to Dec 25 at midnight
   workflow_dispatch:  # Allows manual triggering of the workflow
-    inputs: 
-      year: 
+    inputs:
+      year:
         description: 'Jahr'
-        required: true 
-      day: 
+        required: true
+      day:
         description: 'Tag'
         required: true
 
@@ -18,29 +19,29 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
-      - name: Set date variables 
-        id: set-date 
+
+      - name: Set date variables
+        id: set-date
         run: |
-          if ($env:github_event_inputs_year -eq "") { 
-            echo "year=$(Get-Date -Format yyyy)" >> $env:GITHUB_ENV 
-          } else { 
-            echo "year=$env:github_event_inputs_year" >> $env:GITHUB_ENV 
-          } 
-          if ($env:github_event_inputs_day -eq "") { 
-            echo "day=$(Get-Date -Format dd)" >> $env:GITHUB_ENV 
-          } else { 
-            echo "day=$env:github_event_inputs_day" >> $env:GITHUB_ENV 
+          if (-not ${{ github.event.inputs.year }}) {
+            echo "year=$(Get-Date -Format yyyy)" >> $env:GITHUB_ENV
+          } else {
+            echo "year=${{ github.event.inputs.year }}" >> $env:GITHUB_ENV
+          }
+          if (-not ${{ github.event.inputs.day }}) {
+            echo "day=$(Get-Date -Format dd)" >> $env:GITHUB_ENV
+          } else {
+            echo "day=${{ github.event.inputs.day }}" >> $env:GITHUB_ENV
           }
         shell: pwsh
-          
+
       - name: Create the new Advent Day
         run: .\create-advent-day.ps1 ${{ env.year }} ${{ env.day }}
         shell: pwsh
-        
+
       - name: Commit and push changes
         run: |
-          git config --global user.name 'github-actions' 
+          git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           $currentDate = Get-Date -Format "dd. MMMM"
           git add .

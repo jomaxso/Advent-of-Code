@@ -89,5 +89,3 @@ dotnet add "$testPath" reference "$solutionPath"
 dotnet sln "../$slnName.sln" add "$testPath"
 
 Set-Location -Path "../../.."
-
-git add .
