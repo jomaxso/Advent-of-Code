@@ -8,9 +8,11 @@ on:
       year:
         description: 'Jahr'
         required: true
+        default: ${{ (Get-Date -Format yyyy) }}
       day:
         description: 'Tag'
         required: true
+        default: ${{ (Get-Date -Format dd) }}
 
 jobs:
   create-advent-day:
