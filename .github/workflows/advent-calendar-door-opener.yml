@@ -72,7 +72,7 @@ jobs:
       - name: Create GitHub issue
         id: create-issue
         run: |
-          gh issue create --label "Advent of Code,${{ env.year }}" --title "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --body "This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }})."
+          gh issue create --title "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --label "Advent of Code,${{ env.year }}" --body "This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }})."
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,7 +80,7 @@ jobs:
       - name: Get issue number
         id: get-issue-number
         run: |
-          $issue_number = gh issue list --search "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --json number --jq ".[0].number"
+          $issue_number = gh search issues "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --label "Advent of Code,${{ env.year }}" --repo $env:GITHUB_REPOSITORY --created $today --json number | ConvertFrom-Json | Select-Object -ExpandProperty number
           echo "ISSUE_NUMBER=$issue_number" >> $env:GITHUB_ENV 
         shell: pwsh
         env:
@@ -90,19 +90,12 @@ jobs:
         run: echo "BRANCH_NAME=issue-${{ env.ISSUE_NUMBER }}" >> $env:GITHUB_ENV
         shell: pwsh
 
-      - name: Commit and push changes
-        run: |
-          $currentDate = Get-Date -Format "dd. MMMM"
-          git add .
-          git commit -m "Automated commit for new Advent Day on $currentDate. See issue #${{ env.ISSUE_NUMBER }}. Branch: $env:BRANCH_NAME."
-          git push origin main
-        shell: pwsh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create branch for issue
         run: |
           git checkout -b $env:BRANCH_NAME 
+          $currentDate = Get-Date -Format "dd. MMMM"
+          git add .
+          git commit -m "Automated commit for new Advent Day on $currentDate. See issue #${{ env.ISSUE_NUMBER }}. Branch: $env:BRANCH_NAME."
           git push --set-upstream origin $env:BRANCH_NAME
         shell: pwsh
         env:
