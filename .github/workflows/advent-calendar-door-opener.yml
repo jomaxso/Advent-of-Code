@@ -89,17 +89,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set branch name
-        run: echo "BRANCH_NAME=issue-${{ env.ISSUE_NUMBER }}" >> $env:GITHUB_ENV
-        shell: pwsh
-
       - name: Create branch for issue
         run: |
-          git checkout -b $env:BRANCH_NAME 
           $currentDate = Get-Date -Format "dd. MMMM"
+          $branchName = "day-${{ env.day }}-advent-of-code-${{ env.year }}"
+          git checkout -b $branchName
           git add .
-          git commit -m "Automated commit for new Advent Day on $currentDate. See issue #${{ env.ISSUE_NUMBER }}. Branch: $env:BRANCH_NAME."
-          git push --set-upstream origin $env:BRANCH_NAME
+          git commit -m "Automated commit for new Advent Day on $currentDate. See issue #${{ env.ISSUE_NUMBER }}."
+          git push --set-upstream origin $branchName
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
