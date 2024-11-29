@@ -13,12 +13,6 @@ $slnPath = "$srcPath\$slnName.sln"
 $folderName = "Day{0:D2}" -f $day
 $fullPath = "$srcPath\$folderName"
 
-#if ((Get-Date) -lt (Get-Date -Year $year -Month 12 -Day 01) -or (Get-Date) -lt (Get-Date -Year $year -Month 12 -Day 25))
-#{
-#    Write-Host "Advent of Code $year has not started yet. Please try again on December 1st."
-#    exit 1
-#}
-
 # Create src root directory if it doesn't exist
 if (-not (Test-Path -Path $srcRoot))
 {

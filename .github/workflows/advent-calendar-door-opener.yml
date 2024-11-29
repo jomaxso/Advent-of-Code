@@ -3,7 +3,7 @@
 on:
   schedule:
     - cron: '0 0 1-25 12 *'  # Runs every day from Dec 1 to Dec 25 at midnight
-  workflow_dispatch:  # Allows manual triggering of the workflow
+  workflow_dispatch: # Allows manual triggering of the workflow
     inputs:
       year:
         description: 'Jahr'
@@ -32,6 +32,15 @@ jobs:
             echo "day=$(Get-Date -Format dd)" >> $env:GITHUB_ENV
           } else {
             echo "day=${{ github.event.inputs.day }}" >> $env:GITHUB_ENV
+          }
+        shell: pwsh
+
+      - name: Check if Advent of Code has started
+        if: github.event_name == 'schedule'
+        run: |
+          if ((Get-Date) -lt (Get-Date -Year ${{ env.year }} -Month 12 -Day 01) -or (Get-Date) -gt (Get-Date -Year ${{ env.year }} -Month 12 -Day 25))) { 
+            Write-Host "Advent of Code ${{ env.year }} has not started yet. Please try again on December 1st." 
+            exit 1 
           }
         shell: pwsh
 
