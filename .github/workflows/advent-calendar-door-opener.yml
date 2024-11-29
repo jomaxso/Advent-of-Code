@@ -21,17 +21,18 @@ jobs:
         
       - name: Set date variables 
         id: set-date 
-        run: | 
-          if [ -z "${{ github.event.inputs.year }}" ]; then 
-            echo "year=$(date +'%Y')" >> $GITHUB_ENV 
-          else 
-            echo "year=${{ github.event.inputs.year }}" >> $GITHUB_ENV 
-          fi 
-          if [ -z "${{ github.event.inputs.day }}" ]; then 
-            echo "day=$(date +'%d')" >> $GITHUB_ENV 
-          else 
-            echo "day=${{ github.event.inputs.day }}" >> $GITHUB_ENV 
-          fi
+        run: |
+          if ($env:github_event_inputs_year -eq "") { 
+            echo "year=$(Get-Date -Format yyyy)" >> $env:GITHUB_ENV 
+          } else { 
+            echo "year=$env:github_event_inputs_year" >> $env:GITHUB_ENV 
+          } 
+          if ($env:github_event_inputs_day -eq "") { 
+            echo "day=$(Get-Date -Format dd)" >> $env:GITHUB_ENV 
+          } else { 
+            echo "day=$env:github_event_inputs_day" >> $env:GITHUB_ENV 
+          }
+        shell: pwsh
           
       - name: Create the new Advent Day
         run: .\create-advent-day.ps1 ${{ env.year }} ${{ env.day }}
