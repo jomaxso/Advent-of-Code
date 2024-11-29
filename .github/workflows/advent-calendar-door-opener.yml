@@ -60,7 +60,7 @@ jobs:
           EMAIL: ${{ secrets.GIT_EMAIL }}
           
       - name: Create GitHub issue
-        issue id: create-issue
+        id: create-issue
         uses: actions/github-script@v6
         with:
           script: |
@@ -79,7 +79,6 @@ jobs:
       - name: Commit and push changes
         run: |
           $currentDate = Get-Date -Format "dd. MMMM"
-          $branchName = "issue-${{ steps.create-issue.outputs.issue_number }}"
           git add .
           git commit -m "Automated commit for new Advent Day on $currentDate. See issue #${{ steps.create-issue.outputs.issue_number }}. Branch: $env:BRANCH_NAME."
           git push origin main
