@@ -28,8 +28,11 @@ jobs:
           } else {
             echo "year=${{ github.event.inputs.year }}" >> $env:GITHUB_ENV
           }
+          
+          echo "month=$(Get-Date -Format MM)" >> $env:GITHUB_ENV
+          
           if (-not ${{ github.event.inputs.day }}) {
-            echo "day=$(Get-Date -Format dd)" >> $env:GITHUB_ENV
+            echo "day=$(Get-Date -Format DD)" >> $env:GITHUB_ENV
           } else {
             echo "day=${{ github.event.inputs.day }}" >> $env:GITHUB_ENV
           }
@@ -80,7 +83,7 @@ jobs:
       - name: Get issue number
         id: get-issue-number
         run: |
-          $issue_number = gh search issues "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --label "Advent of Code,${{ env.year }}" --repo $env:GITHUB_REPOSITORY --created $today --json number | ConvertFrom-Json | Select-Object -ExpandProperty number
+          $issue_number = gh search issues "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --label "Advent of Code,${{ env.year }}" --repo $env:GITHUB_REPOSITORY --created ${{ env.year }}-${{ env.month }}-${{ env.day }} --json number | ConvertFrom-Json | Select-Object -ExpandProperty number
           echo "ISSUE_NUMBER=$issue_number" >> $env:GITHUB_ENV 
         shell: pwsh
         env:
