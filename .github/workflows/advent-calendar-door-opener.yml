@@ -58,7 +58,17 @@ jobs:
         env:
           USER: ${{ secrets.GIT_USER }}
           EMAIL: ${{ secrets.GIT_EMAIL }}
-
+          
+      - name: Create GitHub label 
+        run: |
+          $randomColorForYear = (Get-Random -Minimum 0 -Maximum 16777215).ToString("X6") 
+          $randomColorForMain = (Get-Random -Minimum 0 -Maximum 16777215).ToString("X6") 
+          gh label create "${{ env.year }}" --color "#$randomColorForYear" --description "Label for Advent of Code Year ${{ env.year }}"
+          gh label create "Advent of Code" --color "#$randomColorForMain" --description "Label for Advent of Code issues"
+        shell: pwsh 
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Create GitHub issue
         id: create-issue
         run: |
