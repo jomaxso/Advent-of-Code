@@ -6,13 +6,11 @@ on:
   workflow_dispatch: # Allows manual triggering of the workflow
     inputs:
       year:
-        description: 'Jahr'
+        description: 'Year'
         required: true
-        default: ${{ (Get-Date -Format yyyy) }}
       day:
-        description: 'Tag'
+        description: 'Day'
         required: true
-        default: ${{ (Get-Date -Format dd) }}
 
 jobs:
   create-advent-day:
