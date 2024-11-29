@@ -48,19 +48,49 @@ jobs:
         run: .\create-advent-day.ps1 ${{ env.year }} ${{ env.day }}
         shell: pwsh
 
-      - name: Commit and push changes
+      - name: Set up Git
         run: |
           $user = if ($env:USER) { $env:USER } else { 'github-actions' } 
-          $email = if ($env:EMAIL) { $env:EMAIL } else { 'github-actions@github.com' } 
-          $currentDate = Get-Date -Format "dd. MMMM"
-          
+          $email = if ($env:EMAIL) { $env:EMAIL } else { 'github-actions@github.com' }   
           git config --global user.name $user 
           git config --global user.email $email
+        shell: pwsh
+        env:
+          USER: ${{ secrets.GIT_USER }}
+          EMAIL: ${{ secrets.GIT_EMAIL }}
+          
+      - name: Create GitHub issue
+        issue id: create-issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const response = await github.issues.create({ 
+              owner: context.repo.owner, 
+              repo: context.repo.repo, 
+              title: `Advent of Code ${{ env.year }} - Day ${{ env.day }}`, 
+              body: `This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }}).` 
+            }); 
+            return response.data.number;
+            
+      - name: Set branch name 
+        run: echo "BRANCH_NAME=issue-${{ steps.create-issue.outputs.issue_number }}" >> $env:GITHUB_ENV 
+        shell: pwsh          
+            
+      - name: Commit and push changes
+        run: |
+          $currentDate = Get-Date -Format "dd. MMMM"
+          $branchName = "issue-${{ steps.create-issue.outputs.issue_number }}"
           git add .
-          git commit -m "Automated commit for new Advent Day on $currentDate"
-          git push
+          git commit -m "Automated commit for new Advent Day on $currentDate. See issue #${{ steps.create-issue.outputs.issue_number }}. Branch: $env:BRANCH_NAME."
+          git push origin main
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USER: ${{ secrets.GIT_USER }}
-          EMAIL: ${{ secrets.GIT_EMAIL }}
+      
+      - name: Create branch for issue 
+        run: |
+          git checkout -b $env:BRANCH_NAME 
+          git push --set-upstream origin $env:BRANCH_NAME
+        shell: pwsh 
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
