@@ -72,7 +72,7 @@ jobs:
       - name: Create GitHub issue
         id: create-issue
         run: |
-          gh issue create --label "Advent of Code, ${{ env.year }}" --title "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --body "This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }})."
+          gh issue create --label "Advent of Code,${{ env.year }}" --title "Advent of Code ${{ env.year }} - Day ${{ env.day }}" --body "This issue tracks the solution for [Advent of Code ${{ env.year }} - Day ${{ env.day }}](https://adventofcode.com/${{ env.year }}/day/${{ env.day }})."
         shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
