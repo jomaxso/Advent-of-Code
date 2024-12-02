@@ -11,7 +11,7 @@ Welcome to my Advent of Code repository! This repo contains my solutions for the
   - README.md: A brief explanation of the solution and the approach taken.
 
 ## Progress
-- [ ] Day 01: Historian Hysteria
+- [x] Day 01: Historian Hysteria
 - [ ] Day 02: Red-Nosed Reports
 - [ ] Day 03:
 - [ ] Day 04:
