@@ -48,12 +48,6 @@ $readmeContent = @"
 # [Advent of Code $year - Day $day](https://adventofcode.com/$year/day/$day)
 This folder contains the solution for Day $day.
 
-## Problem
-To be added...
-
-## Solution
-To be added...
-
 ## Run the solution
 To run the solution, execute the following command:
 
@@ -74,6 +68,18 @@ $readmeContent | Out-File -FilePath "README.md" -Encoding utf8
 $solutionPath = "$solutionProjectName\$solutionProjectName.csproj"
 dotnet new console -n "$solutionProjectName"
 dotnet sln "../$slnName.sln" add "$solutionPath"
+
+"" | Out-File -FilePath "$solutionProjectName\input.txt" -Encoding utf8
+
+$programContent = @"
+await foreach (var line in File.ReadLinesAsync("input.txt"))
+{
+    var span = line.AsSpan();
+    Console.WriteLine(span);
+}
+"@
+Remove-Item -Path "$solutionProjectName\Program.cs"
+$programContent | Out-File -FilePath "$solutionProjectName\Program.cs" -Encoding utf8
 
 # Create test project & add project to solution
 $testPath = "$testProjectName\$testProjectName.csproj"

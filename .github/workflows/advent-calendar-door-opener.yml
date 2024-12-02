@@ -11,6 +11,33 @@ on:
       day:
         description: 'Day'
         required: true
+        type: choice
+        options:
+          - "01"
+          - "02"
+          - "03"
+          - "04"
+          - "05"
+          - "06"
+          - "07"
+          - "08"
+          - "09"
+          - "10"
+          - "11"
+          - "12"
+          - "13"
+          - "14"
+          - "15"
+          - "16"
+          - "17"
+          - "18"
+          - "19"
+          - "20"
+          - "21"
+          - "22"
+          - "23"
+          - "24"
+          - "25"
 
 jobs:
   create-advent-day:
@@ -23,18 +50,20 @@ jobs:
       - name: Set date variables
         id: set-date
         run: |
-          if (-not ${{ github.event.inputs.year }}) {
+          $year = ${{ github.event.inputs.year }}
+          if (-not $$year) {
             echo "year=$(Get-Date -Format yyyy)" >> $env:GITHUB_ENV
           } else {
-            echo "year=${{ github.event.inputs.year }}" >> $env:GITHUB_ENV
+            echo "year=$year" >> $env:GITHUB_ENV
           }
           
           echo "month=$(Get-Date -Format MM)" >> $env:GITHUB_ENV
           
-          if (-not ${{ github.event.inputs.day }}) {
+          $day = ${{ github.event.inputs.day }}
+          if (-not $d) {
             echo "day=$(Get-Date -Format DD)" >> $env:GITHUB_ENV
           } else {
-            echo "day=${{ github.event.inputs.day }}" >> $env:GITHUB_ENV
+            echo "day=$day" >> $env:GITHUB_ENV
           }
         shell: pwsh
 
