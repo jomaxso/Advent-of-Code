@@ -20,4 +20,20 @@ public sealed class DistanceCalculatorTests
         // Assert
         actualDistance.Should().Be(expectedDistance);
     }
+    
+    [Fact]
+    public void TestSimilarityScore()
+    {
+        // Arrange
+        List<int> leftList = [3, 4, 2, 1, 3, 3];
+        List<int> rightList = [4, 3, 5, 3, 9, 3];
+
+        const int expectedSimilarityScore = 31;
+
+        // Act
+        var actualSimilarityScore = leftList.GetSimilarityScore(rightList);
+
+        // Assert
+        actualSimilarityScore.Should().Be(expectedSimilarityScore);
+    }
 }

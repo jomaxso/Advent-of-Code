@@ -13,5 +13,9 @@ await foreach (var line in File.ReadLinesAsync("input.txt"))
 }
 
 var totalDistance = leftList.DistanceTo(rightList);
-
 Console.WriteLine($"Total distance: {totalDistance}");
+
+var similarityScore = leftList.GetSimilarityScore(rightList);
+Console.WriteLine($"Similarity score: {similarityScore}");
+
+
