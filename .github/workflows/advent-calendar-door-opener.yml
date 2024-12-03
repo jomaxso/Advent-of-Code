@@ -1,4 +1,4 @@
-﻿name: Advent Calendar Door Opener - Daily from Dec 1 to Dec 25
+name: Advent Calendar Door Opener - Daily from Dec 1 to Dec 25
 
 on:
   schedule:
@@ -51,7 +51,7 @@ jobs:
         id: set-date
         run: |
           $year = ${{ github.event.inputs.year }}
-          if (-not $$year) {
+          if (-not $year) {
             echo "year=$(Get-Date -Format yyyy)" >> $env:GITHUB_ENV
           } else {
             echo "year=$year" >> $env:GITHUB_ENV
@@ -60,7 +60,7 @@ jobs:
           echo "month=$(Get-Date -Format MM)" >> $env:GITHUB_ENV
           
           $day = ${{ github.event.inputs.day }}
-          if (-not $d) {
+          if (-not $day) {
             echo "day=$(Get-Date -Format DD)" >> $env:GITHUB_ENV
           } else {
             echo "day=$day" >> $env:GITHUB_ENV
