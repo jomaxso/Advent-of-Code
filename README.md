@@ -13,7 +13,7 @@ Welcome to my Advent of Code repository! This repo contains my solutions for the
 ## Progress
 - [x] Day 01: Historian Hysteria
 - [x] Day 02: Red-Nosed Reports
-- [ ] Day 03: Mull It Over
+- [x] Day 03: Mull It Over
 - [ ] Day 04:
 - [ ] Day 05:
 - [ ] Day 06: 👢
