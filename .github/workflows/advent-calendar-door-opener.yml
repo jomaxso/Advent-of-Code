@@ -70,7 +70,7 @@ jobs:
       - name: Check if Advent of Code has started
         if: github.event_name == 'schedule'
         run: |
-          if ((Get-Date) -lt (Get-Date -Year ${{ env.year }} -Month 12 -Day 01) -or (Get-Date) -gt (Get-Date -Year ${{ env.year }} -Month 12 -Day 25))) { 
+          if ((Get-Date) -lt (Get-Date -Year ${{ env.year }} -Month 12 -Day 01) -or (Get-Date) -gt (Get-Date -Year ${{ env.year }} -Month 12 -Day 25)) { 
             Write-Host "Advent of Code ${{ env.year }} has not started yet. Please try again on December 1st." 
             exit 1 
           }
