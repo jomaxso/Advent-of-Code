@@ -31,6 +31,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Day03\Test\Test.csproj", "{F01B95E1-3343-45A4-B486-3773E75C8BE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Day04", "Day04", "{BFCBC23B-79C2-428A-842E-E9557AA1F850}"
+	ProjectSection(SolutionItems) = preProject
+		Day04\README.md = Day04\README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution", "Day04\Solution\Solution.csproj", "{01F255E0-0C1B-405D-BFEC-51E698E213CC}"
 EndProject
